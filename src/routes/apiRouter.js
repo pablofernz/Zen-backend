@@ -1,12 +1,12 @@
 const { Router } = require('express');
 const { createTask, getTasks, getOneTask, updateTask, deleteTask } = require("../handlers/taskHandler")
-
 const apiRouter = Router();
+const { validateTaskBody, validateIdParam } = require("../validators/task")
 
-apiRouter.post("/tasks", createTask);
+apiRouter.post("/tasks", validateTaskBody(), createTask);
 apiRouter.get("/tasks", getTasks)
-apiRouter.get("/tasks/:id", getOneTask)
-apiRouter.put("/tasks/:id", updateTask)
-apiRouter.delete("/tasks/:id", deleteTask)
+apiRouter.get("/task/:id?", validateIdParam(), getOneTask)
+apiRouter.put("/task/:id?", validateIdParam(), updateTask)
+apiRouter.delete("/task/:id?", validateIdParam(), deleteTask)
 
 module.exports = apiRouter;

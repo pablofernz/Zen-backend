@@ -3,9 +3,13 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const router = require('./routes/index.js');
-// const { or } = require('sequelize');
 const cors = require('cors');
 const server = express();
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger/zen_api.json');  // Ruta a tu archivo Swagger
+
+server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 server.name = 'API';
 server.use(cors())

@@ -2,8 +2,6 @@ const taskAdder = require("../controllers/createTask");
 const taskDeleter = require("../controllers/deleteTask");
 const taskFinder = require('../controllers/getTasks');
 const taskUpdater = require("../controllers/updateTask");
-const Task = require("../models/Task");
-const mongoose = require("mongoose")
 
 const createTask = async (req, res) => {
     const { title, description, completed } = req.body
@@ -21,7 +19,7 @@ const createTask = async (req, res) => {
     }
 
     try {
-        if (!title) return res.status(400).json({ error: "Must provide a task title" })
+        // if (!title) return res.status(400).json({ error: "Must provide a task title" })
         const result = await taskAdder({ title, description, completed, createdAt: getDay() })
 
         if (!result.success) return res.status(500).json(result)
@@ -56,9 +54,6 @@ const getTasks = async (req, res) => {
 const getOneTask = async (req, res) => {
     const { id } = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ success: false, message: "Invalid ID format" });
-    }
     try {
         const result = await taskFinder({ id })
 
@@ -79,12 +74,6 @@ const updateTask = async (req, res) => {
     const { id } = req.params
     const { title, description, completed } = req.body
 
-    if (!id) return res.status(400).json({ success: false, message: "Must provide the ID of the task to be deleted" })
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ success: false, message: "Invalid ID format" });
-    }
-
     try {
         const result = await taskUpdater({ id, newTask: { title, description, completed } })
         if (!result.success) return res.status(400).json(result)
@@ -97,12 +86,6 @@ const updateTask = async (req, res) => {
 
 const deleteTask = async (req, res) => {
     const { id } = req.params
-
-    if (!id) return res.status(400).json({ success: false, message: "Must provide the ID of the task to be deleted" })
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ success: false, message: "Invalid ID format" });
-    }
 
     try {
         const result = await taskDeleter(id)
