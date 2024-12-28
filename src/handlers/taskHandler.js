@@ -38,7 +38,7 @@ const getTasks = async (req, res) => {
     const { status } = req.query
 
     try {
-        const result = await taskFinder(status)
+        const result = await taskFinder({ status })
 
         if (!result || !result.length) return res.status(404).json({ success: true, message: "Tasks not found" })
 
@@ -50,6 +50,28 @@ const getTasks = async (req, res) => {
 
     } catch (error) {
         return res.status(400).json({ success: false, message: error.message || "An error occurred while fetching tasks" })
+    }
+}
+
+const getOneTask = async (req, res) => {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ success: false, message: "Invalid ID format" });
+    }
+    try {
+        const result = await taskFinder({ id })
+
+        if (!result || !result.length) return res.status(404).json({ success: true, message: "Task not found" })
+
+        return res.status(200).json({
+            success: true,
+            message: "Task found",
+            data: result
+        });
+
+    } catch (error) {
+        return res.status(400).json({ success: false, message: error.message || "An error occurred while fetching this task" })
     }
 }
 
@@ -95,6 +117,7 @@ const deleteTask = async (req, res) => {
 module.exports = {
     createTask,
     getTasks,
+    getOneTask,
     updateTask,
     deleteTask
 }

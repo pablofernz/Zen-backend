@@ -6,8 +6,8 @@ const statusOptions = {
     pending: false
 }
 
-const taskFinder = (status) => {
-    return Task.find(status ? { completed: statusOptions[status] } : {})
+const taskFinder = ({ id, status }) => {
+    return Task.find(status ? { completed: statusOptions[status] } : id ? { _id: id } : {})
 };
 
 module.exports = taskFinder
