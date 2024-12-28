@@ -6,7 +6,7 @@ const Task = require("../models/Task");
 const mongoose = require("mongoose")
 
 const createTask = async (req, res) => {
-    const { title, description, status } = req.body
+    const { title, description, completed } = req.body
 
     // This function returns the current date in DD-MM-YYYY HH:MM to be used in "createdAt" property
     const getDay = () => {
@@ -22,11 +22,11 @@ const createTask = async (req, res) => {
 
     try {
         if (!title) return res.status(400).json({ error: "Must provide a task title" })
-        const result = await taskAdder({ title, description, status, createdAt: getDay() })
+        const result = await taskAdder({ title, description, completed, createdAt: getDay() })
 
-        if (!result.success) return res.status(500).json({ error: result.message })
+        if (!result.success) return res.status(500).json(result)
 
-        return res.status(200).json({ success: true, message: "Task created successfully" })
+        return res.status(200).json(result)
 
     } catch (error) {
         return res.status(400).json({ success: false, message: error.message })
@@ -55,7 +55,7 @@ const getTasks = async (req, res) => {
 
 const updateTask = async (req, res) => {
     const { id } = req.params
-    const { title, description, status } = req.body
+    const { title, description, completed } = req.body
 
     if (!id) return res.status(400).json({ success: false, message: "Must provide the ID of the task to be deleted" })
 
@@ -64,7 +64,7 @@ const updateTask = async (req, res) => {
     }
 
     try {
-        const result = await taskUpdater({ id, newTask: { title, description, status } })
+        const result = await taskUpdater({ id, newTask: { title, description, completed } })
         if (!result.success) return res.status(400).json(result)
 
         return res.status(200).json(result)

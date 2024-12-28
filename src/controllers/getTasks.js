@@ -7,7 +7,7 @@ const statusOptions = {
 }
 
 const taskFinder = (status) => {
-    return Task.find(status ? { status: statusOptions[status] } : {})
+    return Task.find(status ? { completed: statusOptions[status] } : {})
 };
 
 module.exports = taskFinder

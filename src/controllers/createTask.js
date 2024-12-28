@@ -1,10 +1,10 @@
 const taskSchema = require("../models/Task")
 
-const taskAdder = ({ title, description, status, createdAt }, res) => {
-    const newTask = taskSchema({ title, description, status, createdAt, })
+const taskAdder = ({ title, description, completed, createdAt }, res) => {
+    const newTask = taskSchema({ title, description, completed, createdAt, })
     return newTask.save()
         .then(() => {
-            return { success: true, message: "Task added successfully" };
+            return { success: true, message: "Task created successfully", data: newTask };
         })
         .catch((error) => {
             return { success: false, message: error.message || "Error adding task" };
