@@ -79,7 +79,7 @@
         }
       }
     },
-    "/task/{ID}": {
+    "/tasks/{ID}": {
       "get": {
         "tags": ["Tasks"],
         "summary": "Get one particular task.",

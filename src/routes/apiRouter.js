@@ -5,8 +5,8 @@ const { validateTaskBody, validateIdParam } = require("../validators/task")
 
 apiRouter.post("/tasks", validateTaskBody(), createTask);
 apiRouter.get("/tasks", getTasks)
-apiRouter.get("/task/:id?", validateIdParam(), getOneTask)
-apiRouter.put("/task/:id?", validateIdParam(), updateTask)
-apiRouter.delete("/task/:id?", validateIdParam(), deleteTask)
+apiRouter.get("/tasks/:id?", validateIdParam(), getOneTask)
+apiRouter.put("/tasks/:id?", validateIdParam(), updateTask)
+apiRouter.delete("/tasks/:id?", validateIdParam(), deleteTask)
 
 module.exports = apiRouter;
