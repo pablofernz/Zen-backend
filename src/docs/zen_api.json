@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3001/api"
+      "url": "https://zen-api-anac.onrender.com/api"
     }
   ],
   "tags": [
@@ -19,9 +19,7 @@
   "paths": {
     "/tasks": {
       "post": {
-        "tags": [
-          "Tasks"
-        ],
+        "tags": ["Tasks"],
         "summary": "Create a new task",
         "requestBody": {
           "content": {
@@ -56,9 +54,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Tasks"
-        ],
+        "tags": ["Tasks"],
         "summary": "Get all the tasks.",
         "responses": {
           "200": {
@@ -85,9 +81,7 @@
     },
     "/task/{ID}": {
       "get": {
-        "tags": [
-          "Tasks"
-        ],
+        "tags": ["Tasks"],
         "summary": "Get one particular task.",
         "parameters": [
           {
@@ -123,9 +117,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Tasks"
-        ],
+        "tags": ["Tasks"],
         "summary": "Update a task.",
         "parameters": [
           {
@@ -170,9 +162,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Tasks"
-        ],
+        "tags": ["Tasks"],
         "summary": "Delete a task.",
         "parameters": [
           {

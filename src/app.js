@@ -7,7 +7,7 @@ const cors = require('cors');
 const server = express();
 
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger/zen_api.json');  // Ruta a tu archivo Swagger
+const swaggerDocument = require('./docs/zen_api.json');  // Ruta a tu archivo Swagger
 
 server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
