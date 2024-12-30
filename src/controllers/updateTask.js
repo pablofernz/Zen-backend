@@ -9,9 +9,13 @@ const taskUpdater = async ({ id, newTask }) => {
         if (!existingTask) return { success: false, message: "Task not found" };
 
         // If the task is found, it is compared to the current task data, if nothing change return a message
-        if (newTask.title === existingTask.title &&
-            newTask.description === existingTask.description &&
-            newTask.status === existingTask.status) return { success: false, message: "There are no changes" };
+        if (
+            newTask.completed === existingTask.completed &&
+            newTask.title === existingTask.title &&
+            newTask.description === existingTask.description
+        ) {
+            return { success: false, message: "There are no changes" };
+        }
 
         // If there are changes, it is updated and a message is returned
         await Task.updateOne({ _id: id }, newTask);

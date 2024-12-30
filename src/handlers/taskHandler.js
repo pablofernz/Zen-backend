@@ -26,11 +26,11 @@ const createTask = async (req, res) => {
 
 // Function that get all of the tasks or based on the 'status' provided in the query
 const getTasks = async (req, res) => {
-    const { status } = req.query
+    const { completed } = req.query
 
     try {
-        // The 'taskFinder' function is called passing the 'status' as an argument to get tasks that match
-        const result = await taskFinder({ status })
+        // The 'taskFinder' function is called passing the 'complete' as an argument to get tasks that match
+        const result = await taskFinder({ completed })
 
 
         // If no tasks are found, respond with a 404 status code and a message
