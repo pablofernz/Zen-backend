@@ -8,6 +8,8 @@ const createTask = async (req, res) => {
     const { title, description, completed } = req.body
 
     try {
+        if (title.length < 10) return res.status(400).send({ success: false, errors: ["Title too short"] })
+
         // The 'taskAdder' function is called passing the data of req.body as an arguments to create a task
         const result = await taskAdder({ title, description, completed })
 
@@ -79,6 +81,8 @@ const updateTask = async (req, res) => {
     const { title, description, completed } = req.body
 
     try {
+        if (title.length < 10) return res.status(400).send({ success: false, errors: ["Title too short"] })
+
         // The 'taskUpdater' function is called, passing the ID and the new data as arguments to update the existing task
         const result = await taskUpdater({ id, newTask: { title, description, completed } })
 

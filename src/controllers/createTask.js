@@ -19,7 +19,7 @@ const taskAdder = ({ title, description, completed }, res) => {
             return { success: true, message: "Task created successfully", data: newTask };
         })
         .catch((error) => {
-            return { success: false, message: error.message || "Error adding task" };
+            return { success: false, errors: [error.message || "Error adding task"] };
         });
 
 }

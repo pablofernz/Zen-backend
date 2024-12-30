@@ -26,7 +26,7 @@ const taskUpdater = async ({ id, newTask }) => {
 
     } catch (error) {
         // If an error occurs, return a 400 status code (client-side error) and an error message
-        return { success: false, message: "An error occurred while updating this task", error: error.message };
+        return { success: false, errors: [error.message] };
     }
 };
 
