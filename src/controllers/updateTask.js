@@ -14,7 +14,7 @@ const taskUpdater = async ({ id, newTask }) => {
             newTask.title === existingTask.title &&
             newTask.description === existingTask.description
         ) {
-            return { success: false, message: "There are no changes" };
+            return { success: false, errors: ["There are no changes"] };
         }
 
         // If there are changes, it is updated and a message is returned
