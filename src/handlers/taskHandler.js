@@ -5,13 +5,13 @@ const taskUpdater = require("../controllers/updateTask");
 
 // Function that create a new task based on the data provided in the body
 const createTask = async (req, res) => {
-    const { title, description, completed } = req.body
+    const { title, description, completed, createdAt } = req.body
 
     try {
         if (title.length < 10) return res.status(400).send({ success: false, errors: ["Title too short"] })
 
         // The 'taskAdder' function is called passing the data of req.body as an arguments to create a task
-        const result = await taskAdder({ title, description, completed })
+        const result = await taskAdder({ title, description, completed, createdAt })
 
         // If something gone wrong, it return a 500 status code and a message
         if (!result.success) return res.status(500).json(result)
