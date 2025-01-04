@@ -1,11 +1,16 @@
 const userSchema = require("../../models/User")
+const User = require("../../models/User")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
 const secret = process.env.SECRET
 
 
-const userCreator = ({ email, password, joinedAt }) => {
+const userCreator = async ({ email, password, joinedAt }) => {
+    const existingUser = await User.findOne({ email: email })
+
+    if (existingUser) return { success: false, status: 400, message: "This email is already used", data: existingUser };
+
     const newUser = userSchema({ email, password, joinedAt })
     return newUser.save()
         .then(() => {

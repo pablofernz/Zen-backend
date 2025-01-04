@@ -3,7 +3,6 @@ const { createTask, getTasks, getOneTask, updateTask, deleteTask } = require("..
 const apiRouter = Router();
 const { validateTaskBody, validateIdParam } = require("../validators/task")
 
-// apiRouter.post("/tasks", validateTaskBody(), createTask);
 apiRouter.post("/tasks", validateTaskBody(), createTask);
 apiRouter.get("/tasks", getTasks)
 apiRouter.get("/tasks/:id?", validateIdParam(), getOneTask)
