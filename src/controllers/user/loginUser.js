@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt")
 const secret = process.env.SECRET
 
 
-const userLogin = async ({ receivedEmail, receivedPassword }) => {
+const userLoginDefault = async ({ receivedEmail, receivedPassword }) => {
 
     try {
         const existingClient = await User.findOne({ email: receivedEmail })
@@ -39,4 +39,5 @@ const userLogin = async ({ receivedEmail, receivedPassword }) => {
 
 }
 
-module.exports = userLogin
+
+module.exports = userLoginDefault 

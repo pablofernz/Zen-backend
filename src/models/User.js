@@ -2,6 +2,16 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const taskSchema = require("./Task").schema
 
+const authSchema = mongoose.Schema({
+  authMethod: {
+    type: String,
+    default: "default"
+  },
+  uid: {
+    type: String
+  }
+})
+
 const userSchema = mongoose.Schema({
   email: {
     type: String,
@@ -9,13 +19,12 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
   },
   joinedAt: {
     type: String,
     required: true
   },
-
+  auth: authSchema,
   tasks: [taskSchema]
 }, {
   versionKey: false // Establecer versionKey en false para eliminar la propiedad "__v"
@@ -23,6 +32,10 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', async function (next) {
   try {
+
+    if (!this.password || this.password === '') {
+      return next(); // Si está vacía, no hacer nada y continuar
+    }
     // Verificar si la contraseña ya está hasheada
     if (!this.isModified('password')) {
       return next();
