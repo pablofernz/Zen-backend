@@ -8,7 +8,7 @@ const secret = process.env.SECRET
 const authAccess = async ({ email, password, joinedAt, auth }) => {
 
     try {
-        const existingClient = await User.findOne({ "auth.uid": auth.uid })
+        const existingClient = await User.findOne({ "auth.uid": auth.uid, "auth.authMethod": auth.authMethod })
 
         if (!existingClient) {
             const newUser = userSchema({ email, password, joinedAt, auth })
@@ -26,7 +26,7 @@ const authAccess = async ({ email, password, joinedAt, auth }) => {
                             exp: Date.now() + 60 * 1000 * 60 * 24 * 7
                         }, secret
                     )
-                    return { success: true, status: 200, message: "User created successfully", token: token };
+                    return { success: true, status: 200, message: "User created successfully", token: token, data: { email: newUser.email, authMethod: newUser.auth.authMethod } };
                 })
                 .catch((error) => {
                     return { success: false, status: 400, message: error.message || "Error creating the user" };
@@ -46,7 +46,7 @@ const authAccess = async ({ email, password, joinedAt, auth }) => {
             )
 
 
-            return { success: true, status: 200, message: "Login successfully", token: token };
+            return { success: true, status: 200, message: "Login successfully", token: token, data: { email: existingClient.email, authMethod: existingClient.auth.authMethod } };
         }
 
     } catch (error) {

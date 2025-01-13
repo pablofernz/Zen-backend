@@ -6,12 +6,12 @@ require("dotenv").config()
 const secret = process.env.SECRET
 
 
-const userCreator = async ({ email, password, joinedAt, auth }) => {
+const userCreator = async ({ email, password, joinedAt }) => {
     const existingUser = await User.findOne({ email: email })
 
     if (existingUser) return { success: false, status: 400, message: "This email is already used", data: existingUser };
 
-    const newUser = userSchema({ email, password, joinedAt, auth })
+    const newUser = userSchema({ email, password, joinedAt })
     return newUser.save()
         .then(() => {
             const tokenData = {

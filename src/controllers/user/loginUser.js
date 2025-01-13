@@ -16,8 +16,6 @@ const userLoginDefault = async ({ receivedEmail, receivedPassword }) => {
         if (!passwordsMatch) return { success: false, status: 401, message: "Password incorrect" };
 
         const tokenData = {
-            name: existingClient.name,
-            lastname: existingClient.lastname,
             id: existingClient._id,
             email: existingClient.email
         }
@@ -30,7 +28,7 @@ const userLoginDefault = async ({ receivedEmail, receivedPassword }) => {
         )
 
 
-        return { success: true, status: 200, message: "Login successfully", token: token };
+        return { success: true, status: 200, message: "Login successfully", token: token, data: { email: existingClient.email } };
 
     } catch (error) {
         return { success: false, status: 400, message: error.message || "Error log in" };
